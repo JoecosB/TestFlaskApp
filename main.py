@@ -36,4 +36,4 @@ def test():
     return '<form method="post">Name: <input type="text" name="name"><input type="text" name="pwd"><input type="submit" value="Submit"></form>'
 
 if __name__ == '__main__':
-    app.run(ssl_context=('./Certificate/cert.pem', './Certificate/key.pem'), debug=True)
+    app.run(ssl_context=('./Certificate/cert.pem', './Certificate/key.pem'), host='0.0.0.0', port=8080, debug=True)
