@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 // 引入组件
-import HomePage from '../components/HomePage.vue';
-import AboutPage from '../components/AboutPage.vue';
+import HomePage from '@/components/Pages/HomePage.vue';
+import AboutPage from '@/components/Pages/AboutPage.vue';
+import TrollPage from "@/components/Pages/TrollPage.vue";
 
 // 定义路由
 const routes = [
@@ -15,6 +16,11 @@ const routes = [
     path: '/about',
     name: 'About',
     component: AboutPage
+  },
+  {
+    path: '/troll',
+    name: 'Troll',
+    component: TrollPage
   }
 ];
 
