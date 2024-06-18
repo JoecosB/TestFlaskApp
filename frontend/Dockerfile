@@ -5,7 +5,7 @@ FROM node:16
 WORKDIR /app
 
 # 复制当前目录内容到工作目录
-COPY package*.json ./
+COPY package.json ./
 
 # 安装依赖
 RUN npm install
