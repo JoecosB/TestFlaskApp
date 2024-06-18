@@ -238,3 +238,5 @@ fabric.properties
 
 .DS_Store
 /backend/Certificate
+Pipfile
+Pipfile.lock
