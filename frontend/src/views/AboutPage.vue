@@ -10,6 +10,7 @@ import MarkdownIt from "markdown-it";
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css'; // 选择你喜欢的样式
 import axios from 'axios';
+import { ref, onMounted, computed } from 'vue';
 
 export default {
   name: 'AboutPage',
@@ -27,6 +28,7 @@ export default {
       }
     };
 
+    // 在组件挂载后调用 fetchTextFile
     onMounted(() => {
       fetchTextFile();
     });
