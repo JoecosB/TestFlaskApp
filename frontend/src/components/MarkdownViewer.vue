@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>{{ title }}</h1>
     <span v-html="result"></span>
   </div>
 </template>
@@ -10,14 +9,15 @@ import MarkdownIt from "markdown-it";
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css'; // 选择你喜欢的样式
 import axios from 'axios';
-import { ref, onMounted, computed, nextTick } from 'vue';
+import { ref, onMounted, computed, nextTick, watch } from 'vue';
 
 export default {
   name: 'MarkdownViewer',
   props: {
     filename: {
       type: String,
-      required: true
+      required: true,
+      default: 'test.md'
     },
     title: {
       type: String,
@@ -63,6 +63,13 @@ export default {
         pre.appendChild(button);
       });
     };
+
+    // 监听 filename 的变化
+    watch(() => props.filename, (newFilename) => {
+      if (newFilename) {
+        fetchTextFile();
+      }
+    });
 
     // 在组件挂载后调用函数
     onMounted(() => {

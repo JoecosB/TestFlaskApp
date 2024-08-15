@@ -23,7 +23,7 @@ export default {
   computed: {
     // 根据路由路径选择侧边栏
     SideBar() {
-      return this.$route.path === '/blog' ? SideBar_Blog : SideBar_Home;
+      return this.$route.path.startsWith('/blog') ? SideBar_Blog : SideBar_Home;
     }
   }
 }

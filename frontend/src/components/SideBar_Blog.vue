@@ -2,16 +2,41 @@
   <div class="sidebar">
     <h1>目录</h1>
     <ul>
-      <li><router-link to="/" class="route-li">香蕉</router-link></li>
-      <li><router-link to="/blog" class="route-li">我的博客文章</router-link></li>
-      <li><router-link to="/contact" class="route-li">联系我</router-link></li>
+      <li v-for="(file, index) in fileList" :key="index">
+        <router-link :to="{ name: 'Blog', params: { filename: file } }" class="route-li">
+          {{ file }}
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { ref, onMounted } from "vue";
+import axios from 'axios';
+
 export default {
-  name: 'Sidebar'
+  name: 'Sidebar',
+  setup() {
+    const fileList = ref([]);
+
+    const fetchFileList = async () => {
+      try {
+        const response = await axios.get('/api/get_file_list');
+        fileList.value = response.data.file_list;
+      } catch (error) {
+        console.error('Error fetching file list:', error);
+      }
+    };
+
+    onMounted(() => {
+      fetchFileList();
+    });
+
+    return {
+      fileList
+    };
+  }
 }
 </script>
 
