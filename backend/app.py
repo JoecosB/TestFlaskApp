@@ -4,7 +4,7 @@ import os
 app = Flask(__name__)
 
 
-@app.route('/api/markdown_file/<filename>', methods=['GET'])
+@app.route('/api/markdown_files/<filename>', methods=['GET'])
 def get_markdown_file(filename):
     # 生成完整文件路径
     file_path = os.path.join('/app/markdown_files', filename)

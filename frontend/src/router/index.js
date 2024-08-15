@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 // 引入页面
 import HomePage from '@/views/HomePage.vue';
-import AboutPage from '@/views/AboutPage.vue';
+import BlogPage from '@/views/Blog.vue';
 
 // 定义路由
 const routes = [
@@ -12,9 +12,9 @@ const routes = [
     component: HomePage
   },
   {
-    path: '/about',
-    name: 'About',
-    component: AboutPage
+    path: '/blog',
+    name: 'Blog',
+    component: BlogPage
   },
 ];
 

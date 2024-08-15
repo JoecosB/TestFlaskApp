@@ -3,7 +3,7 @@
     <h1>目录</h1>
     <ul>
       <li><router-link to="/" class="route-li">主页</router-link></li>
-      <li><router-link to="/about" class="route-li">我的博客文章</router-link></li>
+      <li><router-link to="/blog" class="route-li">我的博客文章</router-link></li>
       <li><router-link to="/contact" class="route-li">联系我</router-link></li>
     </ul>
   </div>
