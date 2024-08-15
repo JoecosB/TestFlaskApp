@@ -1,10 +1,10 @@
 <template>
   <div class="sidebar">
-    <h1>Navigation</h1>
+    <h1>目录</h1>
     <ul>
-      <li><router-link to="/" class="route-li">Home</router-link></li>
-      <li><router-link to="/about" class="route-li">About</router-link></li>
-      <li><router-link to="/contact" class="route-li">Contact</router-link></li>
+      <li><router-link to="/" class="route-li">主页</router-link></li>
+      <li><router-link to="/about" class="route-li">我的博客文章</router-link></li>
+      <li><router-link to="/contact" class="route-li">联系我</router-link></li>
     </ul>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
   background-color: #f0f0f0;
   padding: 10px;
   left: 0;
-  top: 0;
+  margin-top: 10px;
 }
 
 ul {

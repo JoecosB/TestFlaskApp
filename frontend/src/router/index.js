@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 // 引入页面
 import HomePage from '@/views/HomePage.vue';
 import AboutPage from '@/views/AboutPage.vue';
-import TrollPage from "@/views/TrollPage.vue";
 
 // 定义路由
 const routes = [
@@ -16,11 +15,6 @@ const routes = [
     path: '/about',
     name: 'About',
     component: AboutPage
-  },
-  {
-    path: '/troll',
-    name: 'Troll',
-    component: TrollPage
   },
 ];
 
