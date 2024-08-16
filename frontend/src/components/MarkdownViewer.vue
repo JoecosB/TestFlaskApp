@@ -17,7 +17,6 @@ export default {
     filename: {
       type: String,
       required: true,
-      default: 'test.md'
     },
     title: {
       type: String,
