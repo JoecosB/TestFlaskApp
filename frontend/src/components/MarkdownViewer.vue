@@ -109,3 +109,61 @@ export default {
   }
 }
 </script>
+
+<style>
+/* 针对代码块的自定义样式 */
+pre code.hljs {
+  background-color: #f0f0f0; /* 灰色背景 */
+  border: 1px solid #ccc;    /* 边框颜色 */
+  padding: 10px;             /* 内边距 */
+  border-radius: 5px;        /* 圆角 */
+  display: block;
+  overflow-x: auto;          /* 横向滚动条 */
+  white-space: pre-wrap;     /* 保持换行 */
+}
+
+/* 针对内联代码块的样式 */
+code.hljs {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+/* 针对代码块的自定义样式 */
+pre code {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 5px;
+  border-radius: 2px;
+  display: block;
+}
+
+/* 针对内联代码块的样式 */
+code {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+/* 将复制按钮放置在代码块的右上角 */
+.copy-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  color: #333333; /* 按钮文字颜色 */
+  border: none;
+  padding: 1px 2px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.1s ease, color 0.1s ease
+}
+
+.copy-button:hover {
+  background-color: #333; /* 鼠标悬停时的颜色 */
+  color: #ffffff
+}
+</style>
