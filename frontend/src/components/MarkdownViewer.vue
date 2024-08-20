@@ -10,6 +10,7 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import axios from 'axios';
 import { ref, onMounted, computed, nextTick, watch } from 'vue';
+import imsize from 'markdown-it-imsize';
 
 export default {
   name: 'MarkdownViewer',
@@ -70,6 +71,7 @@ export default {
     });
 
     const md = new MarkdownIt({
+      linkify: true,
       highlight: function (str, lang) {
         if (lang && hljs.getLanguage(lang)) {
           try {
@@ -81,6 +83,21 @@ export default {
         return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
       }
     });
+    md.use(imsize)
+
+    // 添加图片大小处理规则
+    md.renderer.rules.image = function (tokens, idx, options, env, self) {
+      const token = tokens[idx];
+      const src = token.attrGet('src');
+      const alt = token.content || '';
+
+      let width = 'calc(100% - 80px)';
+      let height = 'auto';
+
+      // 生成最终的 HTML 图片标签
+      return `<img src="${src}" alt="${alt}" style="max-width:${width}; height:${height};" />`;
+    };
+
     const result = computed(() => {
       return md.render(fileContent.value);
     });
