@@ -412,12 +412,13 @@ export default {
 
     // 建立函数，在代码块右上角添加复制按钮
     const addCopyButtons = () => {
-      document.querySelectorAll('pre').forEach((pre) => {
+      document.querySelectorAll('pre > code.hljs').forEach((codeElement) => {
+        const pre = codeElement.parentNode;
         const button = document.createElement('button');
         button.className = 'copy-button';
         button.innerText = 'Copy';
         button.addEventListener('click', () => {
-          const code = pre.querySelector('code').innerText;
+          const code = codeElement.innerText;
           navigator.clipboard.writeText(code).then(() => {
             button.innerText = 'Copied!';
             setTimeout(() => {
@@ -454,6 +455,7 @@ export default {
       linkify: true,
       highlight: function (str, lang) {
         if (lang && hljs.getLanguage(lang)) {
+          console.log(lang);
           try {
             return '<pre><code class="hljs">' +
                    hljs.highlight(str, { language: lang }).value +
@@ -560,4 +562,13 @@ code {
 .hljs-ln-code {
   padding-left: 10px;        /* 代码与行号之间的间距 */
 }
+
+.code-lang-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-transform: uppercase; /* 字母大写 */
+  Z-index: 10;            /* 确保标签在代码块之上 */
+}
+
 </style>
