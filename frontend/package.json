@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^1.7.4",
     "highlight.js": "^11.10.0",
+    "highlightjs-line-numbers.js": "^2.8.0",
     "markdown-it": "^14.1.0",
     "markdown-it-highlightjs": "^4.1.0",
     "markdown-it-imsize": "^2.0.1",
