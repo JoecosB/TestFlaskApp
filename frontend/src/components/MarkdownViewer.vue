@@ -1,6 +1,13 @@
 <template>
   <div>
-    <span v-html="result"></span>
+    <div class="content-container">
+      <span v-html="result"></span>
+    </div>
+    <div class="right-container">
+      <div class="toc-container">
+        <div v-html="toc"></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -11,6 +18,7 @@ import 'highlight.js/styles/github.css';
 import axios from 'axios';
 import { ref, onMounted, computed, nextTick, watch } from 'vue';
 import imsize from 'markdown-it-imsize';
+import attrs from 'markdown-it-attrs';
 
 export default {
   name: 'MarkdownViewer',
@@ -26,8 +34,10 @@ export default {
   },
   setup(props, { emit }) {
     const fileContent = ref('');
+    const toc = ref('');
     window.hljs = hljs;
 
+    // 这个函数来源于https://github.com/wcoder/highlightjs-line-numbers.js/
     (function (w, d) {
     'use strict';
     console.log(w)
@@ -397,17 +407,46 @@ export default {
 
     const fetchTextFile = async () => {
       try {
+        // 获取md文件
         emit('loading'); // 开始加载时发送事件
         const response = await axios.get(`/api/markdown_files/${props.filename}`);
         fileContent.value = response.data;
+
+        // 添加复制按钮，添加行号，添加文章内导航目录。
         await nextTick();
         addCopyButtons();
         addLineNumbers()
+        generateToc();
+
       } catch (error) {
         console.error('Error fetching text file:', error);
       } finally {
         emit('loaded'); // 加载完成后发送事件
       }
+    };
+
+    // 建立函数生成目录
+    const generateToc = () => {
+      const headers = document.querySelectorAll('.content-container h2, .content-container h3');
+      const tocHtml = [`<h3>标题导航</h3>`];
+      headers.forEach((header) => {
+        const level = header.tagName.toLowerCase();
+        const text = header.innerText;
+        const id = text.replace(/\s+/g, '-').toLowerCase();
+        header.setAttribute('id', id);
+        header.style.scrollMarginTop = '80px';
+
+        // 根据级别添加不同的符号
+        let prefix = '';
+        if (level === 'h2') {
+          prefix = '- ';
+        } else if (level === 'h3') {
+          prefix = '· ';
+        }
+
+        tocHtml.push(`<a class="toc-item toc-${level}" href="#${id}">${prefix}${text}</a>`);
+      });
+      toc.value = tocHtml.join('');
     };
 
     // 建立函数，在代码块右上角添加复制按钮
@@ -466,6 +505,11 @@ export default {
       }
     });
     md.use(imsize)
+    md.use(attrs, {
+      leftDelimiter: '{',
+      rightDelimiter: '}',
+      allowedAttributes: []  // empty array = all attributes are allowed
+    });
 
     // 添加图片大小处理规则
     md.renderer.rules.image = function (tokens, idx, options, env, self) {
@@ -487,6 +531,7 @@ export default {
 
     return {
       result,
+      toc,
       title: props.title
     };
   }
@@ -571,4 +616,55 @@ code {
   Z-index: 10;            /* 确保标签在代码块之上 */
 }
 
+/* 导航栏样式 */
+.toc-container {
+  position: fixed;
+  top: 100px;
+  right: 0px;
+  width: 250px;
+  padding: 10px;
+  background: #f9f9f9;
+  border: none;
+  border-radius: 5px;
+  overflow-y: auto;
+}
+
+.right-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 280px;
+  background-color: #f9f9f9;
+  border: none;
+  overflow-y: auto;
+  padding-top: 20px;
+}
+
+/* 导航项样式 */
+.toc-item {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.toc-item:hover {
+  color: cornflowerblue;
+}
+
+/* 不同级别标题的缩进 */
+.toc-h2 {
+  margin-left: 10px;
+}
+
+.toc-h3 {
+  margin-left: 20px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 </style>
