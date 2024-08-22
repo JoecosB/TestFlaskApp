@@ -1,11 +1,19 @@
 <template>
-  <div>
+  <div class="main-container">
     <div class="content-container">
       <span v-html="result"></span>
     </div>
     <div class="right-container">
       <div class="toc-container">
-        <div v-html="toc"></div>
+        <h3>标题导航</h3>
+        <a
+          v-for="item in tocItems"
+          :key="item.id"
+          :href="'#' + item.id"
+          :class="['toc-item', `toc-${item.level}`, { active: activeId === item.id }]"
+        >
+          {{ item.text }}
+        </a>
       </div>
     </div>
   </div>
@@ -35,6 +43,8 @@ export default {
   setup(props, { emit }) {
     const fileContent = ref('');
     const toc = ref('');
+    const tocItems = ref([]);
+    const activeId = ref('');
     window.hljs = hljs;
 
     // 这个函数来源于https://github.com/wcoder/highlightjs-line-numbers.js/
@@ -415,8 +425,11 @@ export default {
         // 添加复制按钮，添加行号，添加文章内导航目录。
         await nextTick();
         addCopyButtons();
-        addLineNumbers()
+        addLineNumbers();
         generateToc();
+
+        // 添加滚动事件监听
+        handleScroll();
 
       } catch (error) {
         console.error('Error fetching text file:', error);
@@ -428,15 +441,12 @@ export default {
     // 建立函数生成目录
     const generateToc = () => {
       const headers = document.querySelectorAll('.content-container h2, .content-container h3');
-      const tocHtml = [`<h3>标题导航</h3>`];
-      headers.forEach((header) => {
+      tocItems.value = Array.from(headers).map((header) => {
         const level = header.tagName.toLowerCase();
         const text = header.innerText;
         const id = text.replace(/\s+/g, '-').toLowerCase();
         header.setAttribute('id', id);
-        header.style.scrollMarginTop = '80px';
 
-        // 根据级别添加不同的符号
         let prefix = '';
         if (level === 'h2') {
           prefix = '- ';
@@ -444,9 +454,13 @@ export default {
           prefix = '· ';
         }
 
-        tocHtml.push(`<a class="toc-item toc-${level}" href="#${id}">${prefix}${text}</a>`);
+        return {
+          id,
+          text: `${prefix}${text}`,
+          level,
+        };
       });
-      toc.value = tocHtml.join('');
+      console.log(tocItems.value);
     };
 
     // 建立函数，在代码块右上角添加复制按钮
@@ -474,6 +488,32 @@ export default {
     const addLineNumbers = () => {
       document.querySelectorAll('pre code.hljs').forEach((block) => {
         window.hljs.lineNumbersBlock(block, { singleLine: true });
+      });
+    };
+
+    // 监听滚动事件，更新当前高亮的标题
+    const handleScroll = () => {
+      const headers = document.querySelectorAll('.content-container h2, .content-container h3');
+      const offset = 80; // 用于计算距离，设为0表示从视口顶端开始
+
+      window.addEventListener('scroll', () => {
+        let currentId = '';
+        let smallestDistance = Infinity;
+
+        headers.forEach((header) => {
+          const rect = header.getBoundingClientRect();
+          const distance = Math.abs(rect.top - offset);
+
+          // 选择距离视口顶部最近的标题
+          if (distance < smallestDistance) {
+            smallestDistance = distance;
+            currentId = header.id;
+          }
+        });
+
+        // 更新当前高亮的标题ID
+        console.log(activeId.value);
+        activeId.value = currentId;
       });
     };
 
@@ -532,6 +572,8 @@ export default {
     return {
       result,
       toc,
+      tocItems,
+      activeId,
       title: props.title
     };
   }
@@ -647,7 +689,7 @@ code {
   margin-bottom: 5px;
   font-size: 14px;
   text-decoration: none;
-  color: #333;
+  color: #aaa;
   transition: color 0.3s;
 }
 
@@ -662,6 +704,16 @@ code {
 
 .toc-h3 {
   margin-left: 20px;
+}
+
+/* 高亮的导航项 */
+.toc-item.active {
+  color: #333; /* 高亮状态下的深色 */
+  font-weight: bold;
+}
+
+.toc-item::before {
+  margin-right: 5px;
 }
 
 html {
