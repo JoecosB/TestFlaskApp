@@ -667,4 +667,14 @@ code {
 html {
   scroll-behavior: smooth;
 }
+
+a {
+  text-decoration: none;
+  color: orange;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: cornflowerblue;
+}
 </style>
