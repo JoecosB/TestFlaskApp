@@ -668,6 +668,10 @@ code {
   padding-left: 10px;        /* 代码与行号之间的间距 */
 }
 
+.hljs-string {
+    color: #008000; /* 绿色 */
+}
+
 .code-lang-label {
   position: absolute;
   top: 0;
