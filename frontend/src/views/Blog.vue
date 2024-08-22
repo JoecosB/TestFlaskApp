@@ -11,10 +11,15 @@
 import { ref, watch } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import MarkdownViewer from '@/components/MarkdownViewer.vue';
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
   components: {
     MarkdownViewer
+  },
+  computed: {
+    ...mapState(['darkMode']),
+    ...mapGetters(['isDarkMode']),
   },
   setup() {
     const route = useRoute();
@@ -79,5 +84,14 @@ export default {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.dark-mode .loading-spinner-container {
+  background-color: rgba(0, 0, 0, 0.8); /* 半透明深色背景 */
+}
+
+.dark-mode .loading-spinner {
+  border: 8px solid #444444; /* 深灰色 */
+  border-top: 8px solid #87cefa; /* 亮蓝色 */
 }
 </style>

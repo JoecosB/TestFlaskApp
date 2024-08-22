@@ -27,6 +27,7 @@ import axios from 'axios';
 import { ref, onMounted, computed, nextTick, watch } from 'vue';
 import imsize from 'markdown-it-imsize';
 import attrs from 'markdown-it-attrs';
+import { useStore } from "vuex";
 
 export default {
   name: 'MarkdownViewer',
@@ -45,6 +46,8 @@ export default {
     const toc = ref('');
     const tocItems = ref([]);
     const activeId = ref('');
+    const store = useStore();
+    const isDarkMode = computed(() => store.getters.isDarkMode);
     window.hljs = hljs;
 
     // 这个函数来源于https://github.com/wcoder/highlightjs-line-numbers.js/
@@ -517,11 +520,27 @@ export default {
       });
     };
 
+    const applyDarkModeClass = () => {
+      const elements = this.$el.querySelectorAll('.loading-spinner-container, .loading-spinner, .copy-button, .copy-button:hover, .hljs-ln-numbers, .hljs-ln-code, .code-lang-label, .toc-container, .right-container, .toc-item, .toc-item:hover, .toc-h2, .toc-h3, .toc-item.active, .toc-item::before');
+      elements.forEach(element => {
+        if (isDarkMode) {
+          element.classList.add('dark-mode');
+        } else {
+          element.classList.remove('dark-mode');
+        }
+      });
+    };
+
     // 当文件名变化时重新获取文件
     watch(() => props.filename, (newFilename) => {
       if (newFilename) {
         fetchTextFile();
       }
+    });
+
+    // 当黑夜模式变化当时候修改html
+    watch(isDarkMode, () => {
+      applyDarkModeClass();
     });
 
     // 组件挂载后获取文件
@@ -626,7 +645,6 @@ code {
   border-radius: 3px;
   cursor: pointer;
   font-size: 12px;
-  transition: background-color 0.1s ease, color 0.1s ease
 }
 
 .copy-button:hover {
@@ -690,7 +708,6 @@ code {
   font-size: 14px;
   text-decoration: none;
   color: #aaa;
-  transition: color 0.3s;
 }
 
 .toc-item:hover {
@@ -728,5 +745,68 @@ a {
 
 a:hover {
   color: cornflowerblue;
+}
+
+.dark-mode pre code.hljs {
+  background-color: #2a2a2a; /* 背景改为深灰色 */
+  color: #e0e0e0; /* 文字改为浅灰色 */
+}
+
+.dark-mode code.hljs {
+  background-color: #2a2a2a; /* 背景改为深灰色 */
+  color: #e0e0e0; /* 文字改为浅灰色 */
+}
+
+.dark-mode pre code {
+  background-color: #2a2a2a; /* 背景改为深灰色 */
+  color: #e0e0e0; /* 文字改为浅灰色 */
+}
+
+.dark-mode code {
+  background-color: #2a2a2a; /* 背景改为深灰色 */
+  color: #e0e0e0; /* 文字改为浅灰色 */
+}
+
+.dark-mode .copy-button {
+  color: #e0e0e0; /* 按钮文字改为浅灰色 */
+}
+
+.dark-mode .copy-button:hover {
+  background-color: #444444; /* 背景改为深灰色 */
+  color: #ffffff; /* 文字改为白色 */
+}
+
+.dark-mode .hljs-ln-numbers {
+  color: #999999; /* 行号颜色改为浅灰色 */
+  background-color: #2a2a2a; /* 行号背景改为深灰色 */
+}
+
+.dark-mode .right-container {
+  background-color: #2a2a2a; /* 背景改为深灰色 */
+  color: #e0e0e0; /* 文字改为浅灰色 */
+}
+
+.dark-mode .toc-container {
+  background-color: #2a2a2a;
+}
+
+.dark-mode .toc-item {
+  color: #b3b3b3; /* 导航项文字改为略深的灰色 */
+}
+
+.dark-mode .toc-item:hover {
+  color: #87cefa; /* 悬停时改为亮蓝色 */
+}
+
+.dark-mode .toc-item.active {
+  color: #ffffff; /* 高亮状态改为白色 */
+}
+
+.dark-mode a {
+  color: #87cefa; /* 链接改为亮蓝色 */
+}
+
+.dark-mode a:hover {
+  color: #ff8c00; /* 悬停时改为橙色 */
 }
 </style>
