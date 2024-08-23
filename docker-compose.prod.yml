@@ -2,7 +2,7 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile.prod  # 使用生产环境的 Dockerfile
+      dockerfile: Dockerfile.prod  # 使用生产环境的 Dockerfile.prod
     expose:
       - "5000"
     environment:
@@ -13,7 +13,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.prod  # 使用生产环境的 Dockerfile
+      dockerfile: Dockerfile.prod  # 使用生产环境的 Dockerfile.prod
     environment:
       - NODE_ENV=production  # 设置生产环境变量
     networks:
@@ -23,6 +23,9 @@ services:
 
   nginx:
     image: nginx:alpine
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.prod
     ports:
       - "80:80"
     volumes:

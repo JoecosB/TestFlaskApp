@@ -1,0 +1,9 @@
+FROM nginx:alpine
+
+# 复制开发环境的 Nginx 配置文件
+COPY nginx.prod.conf /etc/nginx/nginx.conf
+
+# 暴露开发使用的端口
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
