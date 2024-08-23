@@ -16,7 +16,8 @@
     "markdown-it-imsize": "^2.0.1",
     "vue": "^3.0.0",
     "vue-router": "^4.3.3",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "@vue/cli-service": "^4.0.0"
   },
   "devDependencies": {
     "@vue/cli-service": "^4.0.0"
