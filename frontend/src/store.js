@@ -1,15 +1,20 @@
 import { createStore } from 'vuex';
 
+// 尝试从 localStorage 中读取保存的夜间模式状态
+const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+
 const store = createStore({
   state: {
-    darkMode: false // 默认关闭黑夜模式
+    darkMode: savedDarkMode || false // 如果 localStorage 中有保存的状态，则使用它，否则默认关闭
   },
   mutations: {
     toggleDarkMode(state) {
-      state.darkMode = !state.darkMode; // 切换黑夜模式
+      state.darkMode = !state.darkMode;
+      localStorage.setItem('darkMode', state.darkMode); // 保存状态到 localStorage
     },
     setDarkMode(state, value) {
-      state.darkMode = value; // 直接设置黑夜模式状态
+      state.darkMode = value;
+      localStorage.setItem('darkMode', state.darkMode); // 保存状态到 localStorage
     }
   },
   actions: {
