@@ -13,4 +13,4 @@ RUN npm install
 COPY . .
 
 # 设置默认命令
-CMD npm run serve
+CMD npm run serve -- --no-hot
