@@ -94,7 +94,7 @@ h2 {
 
 .toggle-switch.active {
   transform: translateX(25px);
-  background-color: #4CAF50; /* 当激活时，改变背景色 */
+  background-color: #1e1e1e; /* 当激活时，改变背景色 */
 }
 
 .toggle-container.active {

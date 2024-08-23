@@ -795,7 +795,7 @@ a:hover {
 }
 
 .dark-mode .toc-item {
-  color: #b3b3b3; /* 导航项文字改为略深的灰色 */
+  color: #999999; /* 导航项文字改为略深的灰色 */
 }
 
 .dark-mode .toc-item:hover {
