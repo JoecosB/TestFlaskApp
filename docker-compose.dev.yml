@@ -1,10 +1,8 @@
-version: '1.8'
-
 services:
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     expose:
       - "5000"
     volumes:
@@ -17,7 +15,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     environment:
       - NODE_ENV=development
     volumes:
