@@ -14,4 +14,4 @@ RUN npm run build
 
 FROM alpine
 WORKDIR /app
-COPY --from=build /app/dist /app
+COPY --from=build /app/dist  /usr/share/nginx/html
