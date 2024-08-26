@@ -1,0 +1,45 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod  # 使用生产环境的 Dockerfile.prod
+    expose:
+      - "5000"
+    environment:
+      - FLASK_ENV=production  # 设置生产环境变量
+    networks:
+      - all
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod  # 使用生产环境的 Dockerfile.prod
+    environment:
+      - NODE_ENV=production  # 设置生产环境变量
+    networks:
+      - all
+    volumes:
+      - frontend-build:/app/dist  # 使用匿名卷共享构建后的静态文件
+
+  nginx:
+    image: nginx:alpine
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.prod
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.prod.conf:/etc/nginx/nginx.conf  # 挂载自定义 Nginx 配置
+      - frontend-build:/usr/share/nginx/html  # 挂载前端构建输出目录为 Nginx 的静态文件目录
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - all
+
+networks:
+  all:
+    driver: bridge
+
+volumes:
+  frontend-build:
