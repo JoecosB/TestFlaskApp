@@ -2,6 +2,7 @@ FROM nginx:alpine
 
 # 复制开发环境的 Nginx 配置文件
 COPY nginx.prod.conf /etc/nginx/nginx.conf
+COPY dist /usr/share/nginx/html
 
 # 暴露开发使用的端口
 EXPOSE 80

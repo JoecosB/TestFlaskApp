@@ -30,7 +30,6 @@ services:
       - "80:80"
     volumes:
       - ./nginx/nginx.prod.conf:/etc/nginx/nginx.conf  # 挂载自定义 Nginx 配置
-      - frontend-build:/usr/share/nginx/html  # 挂载前端构建输出目录为 Nginx 的静态文件目录
     depends_on:
       - backend
       - frontend
