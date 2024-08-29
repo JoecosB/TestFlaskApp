@@ -515,7 +515,6 @@ export default {
         });
 
         // 更新当前高亮的标题ID
-        console.log(activeId.value);
         activeId.value = currentId;
       });
     };
@@ -607,7 +606,6 @@ pre code.hljs {
   border-radius: 5px;        /* 圆角 */
   display: block;
   overflow-x: auto;          /* 横向滚动条 */
-  white-space: pre-wrap;     /* 保持换行 */
 }
 
 code.hljs {
@@ -669,7 +667,11 @@ code {
 }
 
 .hljs-string {
-    color: #008000; /* 绿色 */
+  color: #008000; /* 绿色 */
+}
+
+.hljs-subst {
+  color: orange;
 }
 
 .code-lang-label {
@@ -812,5 +814,14 @@ a:hover {
 
 .dark-mode a:hover {
   color: #ff8c00; /* 悬停时改为橙色 */
+}
+
+.content-container h1,
+.content-container h2,
+.content-container h3{
+  font-style: oblique;
+  line-height: 1.4;
+  text-decoration-line: spelling-error;
+  scroll-margin-top: 80px;
 }
 </style>

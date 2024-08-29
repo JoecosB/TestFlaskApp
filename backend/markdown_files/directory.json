@@ -3,9 +3,13 @@
         "id": "1",
         "img": 5
     },
+    "使用markdown-it渲染markdown文本": {
+        "id": "4",
+        "img": 1
+    },
     "使用highlightjs-line-numbers.js为markdown渲染提供行号": {
         "id": "3",
-        "img": 0
+        "img": 1
     },
     "使用ssh在外网连接局域网内的树莓派": {
         "id": "2",
