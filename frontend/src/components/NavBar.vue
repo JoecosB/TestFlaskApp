@@ -3,7 +3,7 @@
     <ul>
       <li><router-link to="/" class="route-li"><h1>JutasITe</h1></router-link></li>
       <li><router-link to="/blog" class="route-li"><h2>我的博客文章</h2></router-link></li>
-      <li><router-link to="/contact" class="route-li"><h2>联系我</h2></router-link></li>
+      <li><router-link to="/friendlink" class="route-li"><h2>友情链接</h2></router-link></li>
     </ul>
     <div class="toggle-container" @click="toggleDarkMode">
     <div :class="['toggle-switch', { active: isDarkMode }]">&thinsp;{{isDarkMode ? '夜' : '日'}}</div>

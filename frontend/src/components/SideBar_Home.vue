@@ -4,7 +4,7 @@
     <ul :class="{'dark-mode' : isDarkMode}">
       <li><router-link to="/" :class="['route-li', {'dark-mode' : isDarkMode}]">主页</router-link></li>
       <li><router-link to="/blog" :class="['route-li', {'dark-mode' : isDarkMode}]">我的博客文章</router-link></li>
-      <li><router-link to="/contact" :class="['route-li', {'dark-mode' : isDarkMode}]">联系我</router-link></li>
+      <li><router-link to="/friendlink" :class="['route-li', {'dark-mode' : isDarkMode}]">友情链接</router-link></li>
     </ul>
   </div>
 </template>
