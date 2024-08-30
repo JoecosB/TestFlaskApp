@@ -11,7 +11,11 @@
       <div v-if="isLoading" :class="['loader', {'dark-mode' : isDarkMode}]"></div>
       <ul v-else :class="{'dark-mode' : isDarkMode}">
         <li v-for="(file, index) in fileList" :key="index" :class="['file-item', {'dark-mode' : isDarkMode}]">
-          <router-link :to="{ name: 'Blog', params: { filename: file } }" :class="['route-li', {'dark-mode' : isDarkMode}]">
+          <router-link
+            :to="{ name: 'Blog', params: { filename: file } }"
+            :class="['route-li', {'dark-mode' : isDarkMode}]"
+            @click.native="scrollToTop"
+          >
             {{ file }}
           </router-link>
         </li>
@@ -64,6 +68,10 @@ export default {
       }
     };
 
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     onMounted(() => {
       fetchFileList();
       updateShadows();
@@ -75,6 +83,7 @@ export default {
       hasTopShadow,
       hasBottomShadow,
       handleScroll,
+      scrollToTop
     };
   }
 }
