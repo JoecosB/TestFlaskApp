@@ -100,6 +100,7 @@ export default {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
+  z-index: 10;
 }
 
 .sidebar-header {

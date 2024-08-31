@@ -4,6 +4,8 @@
       <div class="loading-spinner"></div>
     </div>
     <MarkdownViewer :filename="filename" @loading="handleLoading" @loaded="handleLoaded"/>
+    <hr>
+    <div class="info">Copyright © 2024 JutasITe All Rights Reserved.</div>
   </div>
 </template>
 
@@ -84,6 +86,15 @@ export default {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.info {
+  width: calc(100% - 550px);
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 1.5;
+  overflow-y: auto;
+  margin: 0 auto; /* 居中对齐 */
 }
 
 .dark-mode .loading-spinner-container {

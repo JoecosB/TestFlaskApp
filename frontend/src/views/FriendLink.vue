@@ -28,6 +28,11 @@ export default {
           name: 'Bootstrap中文网',
           url: 'https://www.bootcss.com',
           description: '我们一直致力于为广大开发者提供更多的优质技术文档和辅助开发工具！'
+        },
+        {
+          name: '银河渡舟Blog',
+          url: 'https://suborbit.net/',
+          description: '#pending for description'
         }
       ]
     };

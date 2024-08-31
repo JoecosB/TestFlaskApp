@@ -705,6 +705,7 @@ code {
   border: none;
   overflow-y: auto;
   padding-top: 20px;
+  z-index: 10;
 }
 
 /* 导航项样式 */
