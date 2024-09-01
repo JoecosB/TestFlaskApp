@@ -204,7 +204,6 @@ export default {
 
 .update-log-content > ul > li {
   font-size: 1em;
-  margin-bottom: 10px;
   word-wrap: break-word;
   white-space: pre-wrap;
 }
@@ -215,8 +214,7 @@ export default {
 }
 
 .update-log-content ul ul li {
-  font-size: 0.9em;
-  margin-bottom: 5px;
+  font-size: 0.8em;
   word-wrap: break-word;
   white-space: pre-wrap;
 }
