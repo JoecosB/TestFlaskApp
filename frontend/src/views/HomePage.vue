@@ -17,6 +17,24 @@
         <span class="tag">ESP8266</span>
       </div>
     </section>
+    <section :class="['update-log-section', {'dark-mode' : isDarkMode}]">
+      <div class="update-log-header">
+        <h2>更新日志</h2>
+      </div>
+      <hr>
+      <div class="update-log-content">
+        <ul>
+          <li v-for="(log, index) in updateLogs.slice(0, 3)" :key="index">
+            <strong>{{ log.date }}:</strong>
+            <ul>
+              <li v-for="(change, changeIndex) in log.changes" :key="changeIndex">
+                - {{ change }}
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -24,9 +42,27 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
   name: 'HomePage',
+  data() {
+    return {
+      updateLogs: []
+    };
+  },
   computed: {
     ...mapState(['darkMode']),
     ...mapGetters(['isDarkMode']),
+  },
+  mounted() {
+      this.fetchUpdateLogs();
+  },
+  methods: {
+    fetchUpdateLogs() {
+      fetch('./update_info.json')
+        .then(response => response.json())
+        .then(data => {
+          this.updateLogs = data;
+        })
+        .catch(error => console.error('Error fetching update logs:', error));
+    }
   }
 };
 </script>
@@ -133,5 +169,72 @@ export default {
   background-color: #1e1e1e;
   color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.update-log-section {
+  position: fixed;
+  right: 0;
+  top: 80px;
+  width: 260px;
+  height: 100vh;
+  background-color: #f0f0f0;
+  padding-left: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.update-log-header {
+  margin-bottom: 20px;
+}
+
+.update-log-content {
+  max-height: calc(100vh - 160px);
+  overflow-y: auto; /* 使内容在 Y 轴上滚动 */
+  padding-right: 10px; /* 避免滚动条覆盖内容 */
+  text-align: left;
+}
+
+.update-log-content ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+  display: block;
+}
+
+.update-log-content > ul > li {
+  font-size: 1em;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.update-log-content ul ul {
+  margin-left: 5px;
+  padding-left: 0;
+}
+
+.update-log-content ul ul li {
+  font-size: 0.9em;
+  margin-bottom: 5px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.dark-mode .update-log-section {
+  background-color: #2a2a2a; /* 深色背景 */
+  color: #e0e0e0; /* 浅色文字 */
+}
+
+.dark-mode .update-log-header h2 {
+  color: #ffffff;
+}
+
+.dark-mode .update-log-content {
+  background-color: #2a2a2a;
+}
+
+.dark-mode .update-log-content ul ul li {
+  color: #cccccc;
 }
 </style>
