@@ -549,6 +549,7 @@ export default {
 
     // 建立markdown解释器
     const md = new MarkdownIt({
+      html: true,
       linkify: true,
       highlight: function (str, lang) {
         if (lang && hljs.getLanguage(lang)) {
