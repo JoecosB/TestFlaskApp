@@ -8,6 +8,7 @@ WORKDIR /app
 COPY package.json ./
 
 # 安装依赖
+RUN export NODE_MIRROR=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/
 RUN npm install
 
 COPY . .
