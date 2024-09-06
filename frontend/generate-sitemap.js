@@ -9,7 +9,7 @@ const routes = [
 ];
 
 async function generateSitemap() {
-  const sitemap = new SitemapStream({ hostname: 'https://www.example.com' });
+  const sitemap = new SitemapStream({ hostname: 'https://jutasite.top/' });
   const writeStream = createWriteStream(resolve(__dirname, 'public/sitemap.xml'));
 
   sitemap.pipe(writeStream);
