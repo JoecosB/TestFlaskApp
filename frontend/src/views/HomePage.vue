@@ -24,7 +24,7 @@
       <hr>
       <div class="update-log-content">
         <ul>
-          <li v-for="(log, index) in updateLogs.slice(0, 3)" :key="index">
+          <li v-for="(log, index) in updateLogs.slice(0, updateLogs.keys().length)" :key="index">
             <strong>{{ log.date }}:</strong>
             <ul>
               <li v-for="(change, changeIndex) in log.changes" :key="changeIndex">
