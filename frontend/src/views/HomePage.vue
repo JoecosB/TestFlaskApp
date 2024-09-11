@@ -145,7 +145,9 @@ export default {
 
 .dark-mode .hero {
   background: linear-gradient(270deg, #4b0082, #000080);
+  background-size: 400% 400%;
   color: #e0e0e0;
+  animation: gradientBackground 5s ease infinite;
 }
 
 .dark-mode .hero h1 {
