@@ -21,7 +21,6 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
-import VueMeta from 'vue-meta';
 
 export default {
   name: 'FriendsPage',
