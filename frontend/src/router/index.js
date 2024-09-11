@@ -10,17 +10,28 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: HomePage
+    component: HomePage,
+    meta: {
+        title: '首页 - Jutasite',
+        description: '这里是令人头秃的IT开发博客'
+      }
   },
   {
     path: '/blog/:filename',
     name: 'Blog',
-    component: BlogPage
+    component: BlogPage,
+    meta: {
+        title: '我的博客文章 - Jutasite'
+      }
   },
   {
     path: '/friendlink/',
     name: 'FriendLink',
-    component: FriendLink
+    component: FriendLink,
+    meta: {
+        title: '友情链接 - Jutasite',
+        description: '欢迎交换友情链接!'
+      }
   }
 ];
 
