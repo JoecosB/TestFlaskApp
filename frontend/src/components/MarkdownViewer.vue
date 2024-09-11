@@ -622,6 +622,11 @@ pre code {
   padding: 5px;
   border-radius: 2px;
   display: block;
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
 }
 
 /* 针对内联代码块的样式 */
