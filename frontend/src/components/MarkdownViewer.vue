@@ -463,7 +463,6 @@ export default {
           level,
         };
       });
-      console.log(tocItems.value);
     };
 
     // 建立函数，在代码块右上角添加复制按钮

@@ -1,4 +1,4 @@
- <template>
+<template>
   <div class="friends-page">
     <h1>友情链接</h1>
     <ul class="friends-list">
@@ -21,6 +21,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import VueMeta from 'vue-meta';
 
 export default {
   name: 'FriendsPage',
