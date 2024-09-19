@@ -28,6 +28,7 @@ import { ref, onMounted, computed, nextTick, watch } from 'vue';
 import imsize from 'markdown-it-imsize';
 import attrs from 'markdown-it-attrs';
 import { useStore } from "vuex";
+import mk from 'markdown-it-katex';
 
 export default {
   name: 'MarkdownViewer',
@@ -568,6 +569,7 @@ export default {
       rightDelimiter: '}',
       allowedAttributes: []  // empty array = all attributes are allowed
     });
+    md.use(mk)
 
     // 添加图片大小处理规则
     md.renderer.rules.image = function (tokens, idx, options, env, self) {
